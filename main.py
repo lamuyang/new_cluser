@@ -126,6 +126,12 @@ ngram_keyword_dic.update(keyword_dic)
 ngram_keyword_dic.update(n_gram_dic)
 
 print("start final")
+# 去除以...為例子
+regex = r"以.*為例"
+for i in range(0,len(raw_name)):
+    if re.findall(regex,raw_name[i]) != []:
+        raw_name[i] = raw_name[i].replace(re.findall(regex,raw_name[i])[0],"")
+
 CKIP_WIKI_Ngram_keyword_WS_name = ws_to_list(raw_name,"./PklData/final_CKIP_WIKI_Ngram_keyword_WS_name.pkl",WIKI_DIC,ngram_keyword_dic)
 CKIP_WIKI_Ngram_keyword_POS_name = pos_to_list(CKIP_WIKI_Ngram_keyword_WS_name,"./PklData/final_POS_CKIP_WIKI_Ngram_keyword_name.pkl")
 CKIP_WIKI_Ngram_keyword_NER_name = ner_to_list(CKIP_WIKI_Ngram_keyword_WS_name,CKIP_WIKI_Ngram_keyword_POS_name,"./PklData/final_NER_CKIP_WIKI_Ngram_keyword_name.pkl")
