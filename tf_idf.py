@@ -60,27 +60,27 @@ def write_tfidf_result(raw_list,blank_list,old_list,tf_idf_list,filename):
             fileobj.write("==================\n")
 name = fuction.pkl_input.open_pkl("PklData/final_washed_WS_CKIP_WIKI_Ngram_keyword_name.pkl")
 all_title = get_all_list(name)
-name_stopwords = ["研究","探討","分析","內","日","期"]
+name_stopwords = ["探討","分析","內","日","期"]
 all_blank_title = collect_all_blank_word(name)
 title_word,title_weight = tf_idf(new_stop_words=name_stopwords,corpus=all_blank_title)
 title_tfidf_list = print_result(title_word,title_weight)
 
 write_tfidf_result(raw_name,all_blank_title,name,title_tfidf_list,"tfidf_name.txt")
 
-abstract = fuction.pkl_input.open_pkl("PklData/final_washed_WS_CKIP_WIKI_Ngram_keyword_abstract.pkl")
-all_abstract = get_all_list(abstract)
-all_blank_abstract = collect_all_blank_word(abstract)
-abstract_stopwords = ["研究","本","為","各","有","其","者","法","高"]
-abstract_word,abstract_weight = tf_idf(new_stop_words=abstract_stopwords,corpus=all_blank_abstract)
-abstract_tfidf_list = print_result(abstract_word,abstract_weight)
+# abstract = fuction.pkl_input.open_pkl("PklData/final_washed_WS_CKIP_WIKI_Ngram_keyword_abstract.pkl")
+# all_abstract = get_all_list(abstract)
+# all_blank_abstract = collect_all_blank_word(abstract)
+# abstract_stopwords = ["研究","本","為","各","有","其","者","法","高"]
+# abstract_word,abstract_weight = tf_idf(new_stop_words=abstract_stopwords,corpus=all_blank_abstract)
+# abstract_tfidf_list = print_result(abstract_word,abstract_weight)
 
-write_tfidf_result(raw_abstract,all_blank_abstract,abstract,abstract_tfidf_list,"tfidf_abstract.txt")
+# write_tfidf_result(raw_abstract,all_blank_abstract,abstract,abstract_tfidf_list,"tfidf_abstract.txt")
 
-reference = fuction.pkl_input.open_pkl("PklData/final_washed_WS_CKIP_WIKI_Ngram_keyword_reference.pkl")
-all_reference = get_all_list(reference)
-all_blank_reference = collect_all_blank_word(reference)
-reference_stopwords = ["研究","民","頁","”","出版","期","日","為","例","學","版","社","“"]
-reference_word,reference_weight = tf_idf(new_stop_words=reference_stopwords,corpus=all_blank_reference)
-reference_tfidf_list = print_result(reference_word,reference_weight)
+# reference = fuction.pkl_input.open_pkl("PklData/final_washed_WS_CKIP_WIKI_Ngram_keyword_reference.pkl")
+# all_reference = get_all_list(reference)
+# all_blank_reference = collect_all_blank_word(reference)
+# reference_stopwords = ["研究","民","頁","”","出版","期","日","為","例","學","版","社","“"]
+# reference_word,reference_weight = tf_idf(new_stop_words=reference_stopwords,corpus=all_blank_reference)
+# reference_tfidf_list = print_result(reference_word,reference_weight)
 
-write_tfidf_result(raw_reference,all_blank_reference,reference,reference_tfidf_list,"tfidf_reference.txt")
+# write_tfidf_result(raw_reference,all_blank_reference,reference,reference_tfidf_list,"tfidf_reference.txt")
