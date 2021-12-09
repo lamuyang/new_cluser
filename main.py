@@ -21,6 +21,21 @@ def remove_space(line):
         rule = re.compile('  ')
         line = rule.sub(' ',line)
     return line
+def remove_line(line):
+    if re.findall(r"以.*為例",line) != []:
+        line = line.replace(re.findall(r"以.*為例",line)[0],"")
+    if re.findall(r"－.*",line) != []:
+        line = line.replace(re.findall(r"－.*",line)[0],"")
+    if re.findall(r"-.*",line) != []:
+        line = line.replace(re.findall(r"-.*",line)[0],"")
+    if re.findall(r"—.*",line) != []:
+        line = line.replace(re.findall(r"—.*",line)[0],"")
+    if re.findall(r"─.*",line) != []:
+        line = line.replace(re.findall(r"─.*",line)[0],"")
+    if re.findall(r"–.*",line) != []:
+        line = line.replace(re.findall(r"–.*",line)[0],"")
+    line = line.replace("<<","").replace("/","").replace("―","").replace(">>","").replace("”","")
+    return line
 
 def ws_to_list(list,pkl_name,r_dic = {},force_dic = {}):
     new_list = []
@@ -35,7 +50,7 @@ def ws_to_list(list,pkl_name,r_dic = {},force_dic = {}):
     word_sentence_list = ws(
         new_list,
         sentence_segmentation = True, # To consider delimiters
-        segment_delimiter_set = {",", "。", ":", "?", "!", ";","-","──","》","《","\\n",'民', '年', '月', '頁','日'," "},
+        segment_delimiter_set = {",", "。", ":", "?", "!", ";","-","──","》","《","\\n",'民', '年', '月', '頁','日'," ","--"},
         recommend_dictionary = r_dic,
         coerce_dictionary = force_dic,
     )
@@ -127,11 +142,8 @@ ngram_keyword_dic.update(n_gram_dic)
 
 print("start final")
 # 去除以...為例子
-regex = r"以.*為例"
 for i in range(0,len(raw_name)):
-    if re.findall(regex,raw_name[i]) != []:
-        raw_name[i] = raw_name[i].replace(re.findall(regex,raw_name[i])[0],"")
-
+    raw_name[i] = remove_line(raw_name[i])
 CKIP_WIKI_Ngram_keyword_WS_name = ws_to_list(raw_name,"./PklData/final_CKIP_WIKI_Ngram_keyword_WS_name.pkl",WIKI_DIC,ngram_keyword_dic)
 CKIP_WIKI_Ngram_keyword_POS_name = pos_to_list(CKIP_WIKI_Ngram_keyword_WS_name,"./PklData/final_POS_CKIP_WIKI_Ngram_keyword_name.pkl")
 CKIP_WIKI_Ngram_keyword_NER_name = ner_to_list(CKIP_WIKI_Ngram_keyword_WS_name,CKIP_WIKI_Ngram_keyword_POS_name,"./PklData/final_NER_CKIP_WIKI_Ngram_keyword_name.pkl")
